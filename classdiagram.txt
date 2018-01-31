@@ -1,0 +1,44 @@
+@startuml
+
+title scheduling - Class Diagram
+
+class JobShop {
+    -int machines
+	+bool readFile(String path)
+    +Result ScheduleJobs()
+	+void printResult(Result)
+}
+
+class Job {
+    +int id
+}
+
+class Task {
+    +int id
+    +int machine
+    +int duration
+	+int startTime
+}
+
+class Machine {
+	
+}
+
+class Results <<(S,#FF7700)>>{
+    
+}
+
+class Result <<(S,#FF7700)>>{
+    +int id
+    +int startTime
+    +int endTime
+}
+
+JobShop -> "0..*" Job
+Job -> "1..*" Task
+JobShop -> "0..*" Machine
+Machine -> "0..*" Task
+Results -> Result
+
+
+@enduml

@@ -1,0 +1,192 @@
+Jobs( {0,30 ?1,30 ?2,10}, 
+      {0,60 ?1,15 ?2,10})
+
+0:
+
+0,30
+ES: 0
+LS: 0
+startTime: 
+endTime: 
+
+0,60
+ES: 0
+LS: 0
+startTime: 0
+endTime: 60
+
+1,30
+ES:
+LS:
+startTime: 
+endTime: 
+
+1,15
+ES:
+LS:
+startTime: 
+endTime: 
+
+2,10
+ES:
+LS:
+startTime: 
+endTime: 
+
+2,10
+ES:
+LS:
+startTime: 
+endTime: 
+
+1:
+
+0,30
+ES: 60
+LS: 60
+startTime: 60
+endTime: 90
+
+0,60
+ES: 0
+LS: 0
+startTime: 0
+endTime: 60
+
+1,30
+ES: 
+LS:
+startTime: 
+endTime: 
+
+1,15
+ES: 60
+LS: 75
+startTime: 
+endTime: 
+
+2,10
+ES:
+LS:
+startTime: 
+endTime: 
+
+2,10
+ES:
+LS:
+startTime: 
+endTime: 
+
+2:
+
+0,30
+ES: 60
+LS: 60
+startTime: 60
+endTime: 90
+
+0,60
+ES: 0
+LS: 0
+startTime: 0
+endTime: 60
+
+1,30
+ES: 90
+LS: 90
+startTime: 90
+endTime: 120
+
+1,15
+ES: 60
+LS: 75
+startTime: 
+endTime: 
+
+2,10
+ES:
+LS:
+startTime: 
+endTime: 
+
+2,10
+ES:
+LS:
+startTime: 
+endTime: 
+
+3:
+
+0,30
+ES: 60
+LS: 60
+startTime: 60
+endTime: 90
+
+0,60
+ES: 0
+LS: 0
+startTime: 0
+endTime: 60
+
+1,30
+ES: 90
+LS: 90
+startTime: 90
+endTime: 120
+
+1,15
+ES: 60
+LS: 75
+startTime: 
+endTime: 
+
+2,10
+ES: 120
+LS: 120
+startTime: 120
+endTime: 130
+
+2,10
+ES:
+LS:
+startTime: 
+endTime: 
+
+4:
+
+0,30
+ES: 60
+LS: 60
+startTime: 60
+endTime: 90
+
+0,60
+ES: 0
+LS: 0
+startTime: 0
+endTime: 60
+
+1,30
+ES: 90
+LS: 90
+startTime: 90
+endTime: 120
+
+1,15
+ES: 60
+LS: 75
+startTime: 60
+endTime: 75
+
+2,10
+ES: 120
+LS: 120
+startTime: 120
+endTime: 130
+
+2,10
+ES: 75
+LS: 110
+startTime: 75
+endTime: 85

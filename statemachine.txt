@@ -1,0 +1,20 @@
+@startuml
+
+[*] --> Inlezen
+Inlezen -> Scheduling : [inlezen voltooid]
+Scheduling -> Printing : [scheduling voltooid]
+Printing --> [*] : [resultaat geprint]
+Inlezen : entry/
+Inlezen : do/
+Inlezen : exit/
+
+Scheduling : entry/
+Scheduling : do/
+Scheduling : exit/
+
+Printing : entry/
+Printing : do/
+Printing : exit/
+
+
+@enduml

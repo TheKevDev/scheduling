@@ -1,0 +1,53 @@
+/*
+ * Task.hpp
+ *
+ *  Created on: 22 sep. 2017
+ *      Author: Stefan
+ */
+
+#ifndef TASK_HPP_
+#define TASK_HPP_
+
+class Task
+{
+public:
+	Task(long id, long machine, long duration);
+	virtual ~Task();
+	void setStartTime(long startTime);
+	void setEndTime(long endTime);
+	void setPlanned(bool planned);
+
+	long getEs() const
+	{
+		return ES;
+	}
+
+	void setEs(long es)
+	{
+		ES = es;
+	}
+
+	long getLs() const
+	{
+		return LS;
+	}
+
+	void setLs(long ls)
+	{
+		LS = ls;
+	}
+
+	long duration;
+
+
+private:
+	long id;
+	long machine;
+	long startTime;
+	long endTime;
+	bool planned;
+	long ES;
+	long LS;
+};
+
+#endif /* TASK_HPP_ */
