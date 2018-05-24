@@ -18,6 +18,14 @@ public:
 	Job();
 	Job(int id, const std::vector<Task>& aTasks);
 	virtual ~Job();
+
+	unsigned int getDuration() const;
+
+	int getId() const
+	{
+		return id;
+	}
+
 private:
 	int id;
 	std::vector<Task> tasks;

@@ -111,9 +111,26 @@ void JobShop::schedule()
 {
 	std::cout << __PRETTY_FUNCTION__ << std::endl;
 
+	Job& critPath = calculateCriticalPath();
 
+	std::cout << "critPathJobId: " << critPath.getId() << std::endl;
 
 	machines.at(1).addTask(Task(0, 1, 6));
 	machines.at(1).addTask(Task(2, 1, 2));
 	machines.at(1).addTask(Task(3, 1, 9));
+}
+
+Job& JobShop::calculateCriticalPath()
+{
+	std::cout << __PRETTY_FUNCTION__ << std::endl;
+	Job& longestJob = jobs.front();
+
+	for(auto const& job: jobs)
+	{
+		if (job.getDuration() > longestJob.getDuration())
+		{
+			longestJob = job;
+		}
+	}
+	return longestJob;
 }

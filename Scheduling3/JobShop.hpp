@@ -25,6 +25,9 @@ public:
 	bool readJobLine(int id, std::string jobLine);
 
 	void schedule();
+
+	Job& calculateCriticalPath();
+
 private:
 	std::string filePath;
 	int nrOfachines;

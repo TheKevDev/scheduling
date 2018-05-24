@@ -16,7 +16,6 @@ int main(int argc, char* argv[])
 	if (argv[1]){
 		std::cout << "ok" << std::endl;
 		JobShop JS;
-//		JS.readFile(argv[1]);
 
 		if (!JS.readFile(argv[1]))
 			throw std::runtime_error("Error: inlezen file faalt.");

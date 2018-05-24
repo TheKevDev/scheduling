@@ -37,8 +37,17 @@ public:
 		LS = ls;
 	}
 
-	long duration;
+	long getDuration() const
+	{
+		return duration;
+	}
 
+	void setDuration(long duration)
+	{
+		this->duration = duration;
+	}
+
+	long duration;
 
 private:
 	long id;

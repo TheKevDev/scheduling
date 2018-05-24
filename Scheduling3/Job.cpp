@@ -24,3 +24,13 @@ Job::Job(int id, const std::vector<Task>& aTasks)
 	tasks = aTasks;
 	std::cout << __PRETTY_FUNCTION__ << " " << id << std::endl;
 }
+
+unsigned int Job::getDuration() const
+{
+	unsigned int duration = 0;
+	for(auto const& task: tasks)
+	{
+		duration += task.getDuration();
+	}
+	return duration;
+}
