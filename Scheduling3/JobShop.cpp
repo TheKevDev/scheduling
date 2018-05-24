@@ -113,20 +113,19 @@ void JobShop::schedule()
 	std::cout << __PRETTY_FUNCTION__ << std::endl;
 
 	Job& critPath = calculateCriticalPath();
-
+	std::cout << "jobs.at(0).getId(): " << jobs.at(0).getId() << std::endl;
 
 	std::map<unsigned int, const Job&> jobsWithSlack;
 	for (auto const& job : jobs)
 	{
-		jobsWithSlack.insert(std::pair<unsigned int, const Job&>(calculateSlack(job, critPath), job));
 		std::cout << job.getId() << std::endl;
+		jobsWithSlack.insert(std::pair<unsigned int, const Job&>(calculateSlack(job, critPath), job));
 	}
 
 	for (auto const& jws : jobsWithSlack)
 	{
 		std::cout << "job " << jws.second.getId() << ": " << jws.first << std::endl;
 	}
-
 
 	std::cout << "critPathJobId: " << critPath.getId() << std::endl;
 
@@ -138,7 +137,7 @@ void JobShop::schedule()
 Job& JobShop::calculateCriticalPath()
 {
 	std::cout << __PRETTY_FUNCTION__ << std::endl;
-	Job& longestJob = jobs.front();
+	Job longestJob = jobs.front();
 
 	for(auto const& job: jobs)
 	{
@@ -147,7 +146,7 @@ Job& JobShop::calculateCriticalPath()
 			longestJob = job;
 		}
 	}
-	return longestJob;
+	return jobs.at(longestJob.getId()); //TODO: fix...
 }
 
 unsigned int JobShop::calculateSlack(const Job& job, const Job& critPath) const
