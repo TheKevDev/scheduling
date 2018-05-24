@@ -17,11 +17,23 @@ public:
 	Machine(int nr);
 	virtual ~Machine();
 	void addTask(Task aTask);
+
+	bool isBusy() const
+	{
+		return busy;
+	}
+
+	const Task* getTask() const;
+	void setTask(const Task* task);
+
 private:
 	int machineNr;
 	std::vector<Task> tasks;
 	int startTime;
 	int endTime;
+	bool busy;
+	const Task* task;
+	Task task1;
 
 };
 

@@ -34,3 +34,13 @@ unsigned int Job::getDuration() const
 	}
 	return duration;
 }
+
+const Task& Job::getFirstTask() const
+{
+	return tasks.front();
+}
+
+void Job::removeFirstTask()
+{
+	tasks.erase(tasks.begin());
+}

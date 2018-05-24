@@ -47,6 +47,16 @@ public:
 		this->duration = duration;
 	}
 
+	long getId() const
+	{
+		return id;
+	}
+
+	long getMachine() const
+	{
+		return machine;
+	}
+
 	long duration;
 
 private:

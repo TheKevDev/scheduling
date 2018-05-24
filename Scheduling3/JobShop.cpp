@@ -115,19 +115,42 @@ void JobShop::schedule()
 	Job& critPath = calculateCriticalPath();
 	std::cout << "jobs.at(0).getId(): " << jobs.at(0).getId() << std::endl;
 
-	std::map<unsigned int, const Job&> jobsWithSlack;
-	for (auto const& job : jobs)
+	std::map<unsigned int, Job&> jobsWithSlack;
+	for (auto &job : jobs)
 	{
 		std::cout << job.getId() << std::endl;
-		jobsWithSlack.insert(std::pair<unsigned int, const Job&>(calculateSlack(job, critPath), job));
+		jobsWithSlack.insert(std::pair<unsigned int, Job&>(calculateSlack(job, critPath), job));
 	}
 
 	for (auto const& jws : jobsWithSlack)
 	{
-		std::cout << "job " << jws.second.getId() << ": " << jws.first << std::endl;
+		std::cout << "job " << jws.second.getId() << " slack: " << jws.first << std::endl;
+
+
+		const Task& firstTask = jws.second.getFirstTask();
+
+		if (!machines.at(firstTask.getMachine()).isBusy())
+		{
+			machines.at(firstTask.getMachine()).setTask(&firstTask);
+			jws.second.removeFirstTask();
+		}
+
+		//TODO: hier waren we.....
+//		std::cout << "taskId: "  << machines.at(firstTask.getMachine()).getTask()->getId() << std::endl;
+
+		jws.second.removeFirstTask();
+
+		std::cout << "job " << jws.second.getId() << " firstTask: " << firstTask.getId() << std::endl;
+
+
 	}
 
 	std::cout << "critPathJobId: " << critPath.getId() << std::endl;
+
+
+
+
+
 
 	machines.at(1).addTask(Task(0, 1, 6));
 	machines.at(1).addTask(Task(2, 1, 2));

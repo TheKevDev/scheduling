@@ -21,6 +21,10 @@ public:
 
 	unsigned int getDuration() const;
 
+	const Task& getFirstTask() const;
+
+	void removeFirstTask();
+
 	int getId() const
 	{
 		return id;
