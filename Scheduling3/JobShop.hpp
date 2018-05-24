@@ -26,6 +26,8 @@ public:
 
 	void schedule();
 
+	unsigned int calculateSlack(const Job& job, const Job& critPath) const;
+
 	Job& calculateCriticalPath();
 
 private:
@@ -33,6 +35,7 @@ private:
 	int nrOfachines;
 	std::vector<Job> jobs;
 	std::vector<Machine> machines;
+	unsigned int currentTime;
 };
 
 #endif /* JOBSHOP_HPP_ */

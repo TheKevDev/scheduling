@@ -7,6 +7,7 @@
 #include <iostream>
 #include <regex>
 #include <fstream>
+#include <map>
 #include "JobShop.hpp"
 
 JobShop::JobShop()
@@ -113,6 +114,20 @@ void JobShop::schedule()
 
 	Job& critPath = calculateCriticalPath();
 
+
+	std::map<unsigned int, const Job&> jobsWithSlack;
+	for (auto const& job : jobs)
+	{
+		jobsWithSlack.insert(std::pair<unsigned int, const Job&>(calculateSlack(job, critPath), job));
+		std::cout << job.getId() << std::endl;
+	}
+
+	for (auto const& jws : jobsWithSlack)
+	{
+		std::cout << "job " << jws.second.getId() << ": " << jws.first << std::endl;
+	}
+
+
 	std::cout << "critPathJobId: " << critPath.getId() << std::endl;
 
 	machines.at(1).addTask(Task(0, 1, 6));
@@ -133,4 +148,9 @@ Job& JobShop::calculateCriticalPath()
 		}
 	}
 	return longestJob;
+}
+
+unsigned int JobShop::calculateSlack(const Job& job, const Job& critPath) const
+{
+	return (critPath.getDuration() - currentTime) - (job.getDuration() - currentTime);
 }
