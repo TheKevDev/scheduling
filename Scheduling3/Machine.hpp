@@ -8,8 +8,9 @@
 #ifndef MACHINE_HPP_
 #define MACHINE_HPP_
 
-#include "Task.hpp"
 #include <vector>
+
+#include "Task.hpp"
 
 class Machine
 {
@@ -48,7 +49,6 @@ private:
 	unsigned int endTime;
 	bool busy;
 	Task task;
-
 };
 
 #endif /* MACHINE_HPP_ */

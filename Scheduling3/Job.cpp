@@ -7,22 +7,19 @@
 #include <iostream>
 #include "Job.hpp"
 
-Job::Job() : id(0), endTime(0), startTime(0)
+Job::Job()
+: id(0), endTime(0), startTime(0)
 {
-	// TODO Auto-generated constructor stub
-
 }
 
 Job::~Job()
 {
-	// TODO Auto-generated destructor stub
 }
 
 Job::Job(int id, const std::vector<Task>& aTasks)
 : id(id), endTime(0), startTime(0)
 {
 	tasks = aTasks;
-	std::cout << __PRETTY_FUNCTION__ << " " << id << std::endl;
 }
 
 unsigned int Job::getDuration() const

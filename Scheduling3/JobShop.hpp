@@ -32,7 +32,7 @@ public:
 
 private:
 	std::string filePath;
-	int nrOfachines;
+	unsigned int nrOfachines;
 	std::vector<Job> jobs;
 	std::vector<Machine> machines;
 	unsigned int currentTime;

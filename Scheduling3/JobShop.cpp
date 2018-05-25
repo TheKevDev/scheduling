@@ -8,30 +8,25 @@
 #include <regex>
 #include <fstream>
 #include <map>
+
 #include "JobShop.hpp"
 
-JobShop::JobShop() : nrOfachines(0), currentTime(1)
+JobShop::JobShop()
+: nrOfachines(0), currentTime(1)
 {
-	// TODO Auto-generated constructor stub
-
 }
 
 JobShop::~JobShop()
 {
-	// TODO Auto-generated destructor stub
 }
 
 bool JobShop::readFile(std::string filePath)
 {
 	this->filePath = filePath;
 	std::string line;
-	std::cout << "inlezen: " << filePath << std::endl;
-
-//	std::string path = "E:\\eclipseWorkspace\\scheduling\\Debug\\file.txt";
 	std::ifstream stream(filePath);
 	if (stream.is_open())
 	{
-		std::cout << "File is successfully opened" << std::endl;
 		long readingLine = 0;
 		while (getline(stream, line))
 		{
@@ -45,7 +40,6 @@ bool JobShop::readFile(std::string filePath)
 				if (!readJobLine(readingLine - 1, line))
 					throw std::runtime_error("Error: inlezen jobs faalt.");
 			}
-			std::cout << readingLine << " " << line << '\n';
 			++readingLine;
 		}
 		stream.close();
@@ -61,15 +55,13 @@ bool JobShop::readFile(std::string filePath)
 
 bool JobShop::readFirstLine(std::string firstLine)
 {
-	//std::regex rx("(?:\\[[:digit:]]\\.)?\\d+");    // Declare the regex with a raw string literal
 	std::regex rx(R"((?:^|\s)([+-]?[[:digit:]]+(?:\.[[:digit:]]+)?)(?=$|\s))"); // Declare the regex with a raw string literal (?:\d*\.)?\d+ (?:[digit]*\.)?\d+
 	std::smatch m;
 	char nrInLine = 0;
-	while (regex_search(firstLine, m, rx)) {
-		if (nrInLine == 0) {
-			std::cout << "Jobs: " << m[1] << std::endl; // Get Captured Group 1 text
-		}else{
-			std::cout << "Machines: " << m[1] << std::endl; // Get Captured Group 1 text
+	while (regex_search(firstLine, m, rx))
+	{
+		if (nrInLine != 0)
+		{
 			nrOfachines = std::stoi(m[1]);
 			return true;
 		}
@@ -110,8 +102,6 @@ bool JobShop::readJobLine(int id, std::string jobLine)
 
 void JobShop::schedule()
 {
-	std::cout << __PRETTY_FUNCTION__ << std::endl;
-
 	for(;;)
 	{
 		bool tasksLeft = false;
@@ -119,24 +109,20 @@ void JobShop::schedule()
 		{
 			if (job.hasTasks()) tasksLeft = true;
 		}
+
 		if (!tasksLeft) break;
-		std::cout << "currentTime: " << currentTime << std::endl;
 
 		for (auto &machine : machines)
 		{
-			std::cout << "nice " << std::endl;
 			if (machine.getEndTime() < currentTime && machine.isBusy())
 			{
-				std::cout << "meme" << std::endl;
 				machine.setBusy(false);
 				jobs.at(machine.getTask().getJobId()).setEndTime(currentTime);
 				jobs.at(machine.getTask().getJobId()).removeFirstTask();
-				std::cout << "!!!!!" << std::endl;
 			}
 		}
 
 		Job& critPath = calculateCriticalPath();
-
 		std::multimap<unsigned int, Job&> jobsWithSlack;
 		for (auto &job : jobs)
 		{
@@ -148,11 +134,7 @@ void JobShop::schedule()
 
 		for (auto const& jws : jobsWithSlack)
 		{
-			std::cout << "job " << jws.second.getId() << " slack: " << jws.first << std::endl;
-
-
 			const Task& firstTask = jws.second.getFirstTask();
-
 			Machine& m = machines.at(firstTask.getMachine());
 			if (!m.isBusy())
 			{
@@ -161,47 +143,20 @@ void JobShop::schedule()
 				{
 					jws.second.setStartTime(currentTime -1);
 				}
-				std::cout << "machineid "
-						<< m.getMachineNr()
-						<< " is busy with task "
-						<< m.getTask().getId()
-						<< " from job "
-						<< m.getTask().getJobId()
-						<< " which is scheduled to end at "
-						<< m.getEndTime()
-						<< std::endl;
-	//			jws.second.removeFirstTask();
 			}
-
-//			std::cout << "taskId: "  << m.getTask().getId() << std::endl;
-
-			std::cout << "job " << jws.second.getId() << " firstTask: " << firstTask.getId() << std::endl;
-
 		}
-
-		std::cout << "critPathJobId: " << critPath.getId() << std::endl;
-
 		++currentTime;
 	}
 
-
 	for (auto &job : jobs)
 	{
+		// Print result
 		std::cout << job.getId() << " " << job.getStartTime() << " " << job.getEndTime() - 1 << std::endl;
 	}
-
-
-
-
-
-//	machines.at(1).addTask(Task(0, 1, 6));
-//	machines.at(1).addTask(Task(2, 1, 2));
-//	machines.at(1).addTask(Task(3, 1, 9));
 }
 
 Job& JobShop::calculateCriticalPath()
 {
-	std::cout << __PRETTY_FUNCTION__ << std::endl;
 	Job longestJob = jobs.front();
 
 	for(auto const& job: jobs)

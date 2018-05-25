@@ -8,26 +8,19 @@
 #include "Machine.hpp"
 
 Machine::Machine(int nr)
-: machineNr(nr), startTime(0), endTime(0), busy(false), task(1,2,3,4)
+: machineNr(nr), startTime(0), endTime(0), busy(false), task(1,2,3,4) //TODO: Fix this dirty initialization of Task
 {
-	std::cout << __PRETTY_FUNCTION__ << " " << machineNr << std::endl;
-
 }
 
 Machine::~Machine()
 {
-
 }
 
 void Machine::addTask(Task aTask)
 {
 	tasks.push_back(aTask);
-
 	aTask.setStartTime(endTime);
-
 	endTime += aTask.duration;
-
-	std::cout << __PRETTY_FUNCTION__ << " " << endTime << std::endl;
 }
 
 Task Machine::getTask() const

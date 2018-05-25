@@ -8,34 +8,27 @@
 #include <iostream>
 #include <string>
 
-
 #include "JobShop.hpp"
 
 int main(int argc, char* argv[])
 {
-	if (argv[1]){
-		std::cout << "ok" << std::endl;
+	if (argv[1])
+	{
 		JobShop JS;
 
 		if (!JS.readFile(argv[1]))
-			throw std::runtime_error("Error: inlezen file faalt.");
+		{
+			throw std::runtime_error("Error: inlezen file niet geslaagd.");
+		}
 		else
-			std::cout << "File is ingelezen." << std::endl;
-
-		JS.schedule();
-
-
-
-
-
-	}else{
-		std::cerr << "geen pad naar bestand meegegeven" << std::endl;
+		{
+			JS.schedule();
+		}
 	}
-
-//
-//
-//	std::string test;
-//	std::cin >> test;
+	else
+	{
+		std::cerr << "Error: Geen pad naar bestand meegegeven" << std::endl;
+	}
 
 	return 0;
 }
