@@ -23,8 +23,8 @@ public:
 		return busy;
 	}
 
-	const Task* getTask() const;
-	void setTask(const Task* task);
+	Task getTask() const;
+	void setTask(Task task1);
 
 private:
 	int machineNr;
@@ -32,8 +32,7 @@ private:
 	int startTime;
 	int endTime;
 	bool busy;
-	const Task* task;
-	Task task1;
+	Task task;
 
 };
 

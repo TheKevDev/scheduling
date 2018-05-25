@@ -129,16 +129,14 @@ void JobShop::schedule()
 
 		const Task& firstTask = jws.second.getFirstTask();
 
-		if (!machines.at(firstTask.getMachine()).isBusy())
+		Machine& m = machines.at(firstTask.getMachine());
+		if (!m.isBusy())
 		{
-			machines.at(firstTask.getMachine()).setTask(&firstTask);
+			m.setTask(firstTask);
 			jws.second.removeFirstTask();
 		}
 
-		//TODO: hier waren we.....
-//		std::cout << "taskId: "  << machines.at(firstTask.getMachine()).getTask()->getId() << std::endl;
-
-		jws.second.removeFirstTask();
+		std::cout << "taskId: "  << m.getTask().getId() << std::endl;
 
 		std::cout << "job " << jws.second.getId() << " firstTask: " << firstTask.getId() << std::endl;
 
