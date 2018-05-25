@@ -112,8 +112,14 @@ void JobShop::schedule()
 {
 	std::cout << __PRETTY_FUNCTION__ << std::endl;
 
-	for(int i = 0; i < 65; ++i)
+	for(;;)
 	{
+		bool tasksLeft = false;
+		for (auto &job : jobs)
+		{
+			if (job.hasTasks()) tasksLeft = true;
+		}
+		if (!tasksLeft) break;
 		std::cout << "currentTime: " << currentTime << std::endl;
 
 		for (auto &machine : machines)
@@ -123,14 +129,13 @@ void JobShop::schedule()
 			{
 				std::cout << "meme" << std::endl;
 				machine.setBusy(false);
+				jobs.at(machine.getTask().getJobId()).setEndTime(currentTime);
 				jobs.at(machine.getTask().getJobId()).removeFirstTask();
 				std::cout << "!!!!!" << std::endl;
 			}
 		}
 
-
 		Job& critPath = calculateCriticalPath();
-//		std::cout << "jobs.at(0).getId(): " << jobs.at(0).getId() << std::endl;
 
 		std::multimap<unsigned int, Job&> jobsWithSlack;
 		for (auto &job : jobs)
@@ -141,8 +146,6 @@ void JobShop::schedule()
 			}
 		}
 
-
-		bool taskGivenToMachine = false;
 		for (auto const& jws : jobsWithSlack)
 		{
 			std::cout << "job " << jws.second.getId() << " slack: " << jws.first << std::endl;
@@ -154,7 +157,10 @@ void JobShop::schedule()
 			if (!m.isBusy())
 			{
 				m.setTask(firstTask, currentTime - 1);
-				taskGivenToMachine = true;
+				if(jws.second.getEndTime() == 0)
+				{
+					jws.second.setStartTime(currentTime -1);
+				}
 				std::cout << "machineid "
 						<< m.getMachineNr()
 						<< " is busy with task "
@@ -177,6 +183,13 @@ void JobShop::schedule()
 
 		++currentTime;
 	}
+
+
+	for (auto &job : jobs)
+	{
+		std::cout << job.getId() << " " << job.getStartTime() << " " << job.getEndTime() - 1 << std::endl;
+	}
+
 
 
 
