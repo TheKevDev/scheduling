@@ -25,6 +25,8 @@ public:
 
 	void removeFirstTask();
 
+	bool hasTasks();
+
 	int getId() const
 	{
 		return id;

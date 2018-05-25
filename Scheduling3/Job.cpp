@@ -44,3 +44,8 @@ void Job::removeFirstTask()
 {
 	tasks.erase(tasks.begin());
 }
+
+bool Job::hasTasks()
+{
+	return !tasks.empty();
+}

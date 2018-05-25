@@ -112,7 +112,7 @@ void JobShop::schedule()
 {
 	std::cout << __PRETTY_FUNCTION__ << std::endl;
 
-	for(int i = 0; i < 10; ++i)
+	for(int i = 0; i < 65; ++i)
 	{
 		std::cout << "currentTime: " << currentTime << std::endl;
 
@@ -132,11 +132,15 @@ void JobShop::schedule()
 		Job& critPath = calculateCriticalPath();
 //		std::cout << "jobs.at(0).getId(): " << jobs.at(0).getId() << std::endl;
 
-		std::map<unsigned int, Job&> jobsWithSlack;
+		std::multimap<unsigned int, Job&> jobsWithSlack;
 		for (auto &job : jobs)
 		{
-			jobsWithSlack.insert(std::pair<unsigned int, Job&>(calculateSlack(job, critPath), job));
+			if(job.hasTasks())
+			{
+				jobsWithSlack.insert(std::pair<unsigned int, Job&>(calculateSlack(job, critPath), job));
+			}
 		}
+
 
 		bool taskGivenToMachine = false;
 		for (auto const& jws : jobsWithSlack)
