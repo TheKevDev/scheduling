@@ -11,7 +11,7 @@
 class Task
 {
 public:
-	Task(long id, long machine, long duration);
+	Task(long id, long jobId, long machine, long duration);
 	virtual ~Task();
 	void setStartTime(long startTime);
 	void setEndTime(long endTime);
@@ -57,10 +57,21 @@ public:
 		return machine;
 	}
 
+	long getJobId() const
+	{
+		return jobId;
+	}
+
+	long getEndTime() const
+	{
+		return endTime;
+	}
+
 	long duration;
 
 private:
 	long id;
+	long jobId;
 	long machine;
 	long startTime;
 	long endTime;

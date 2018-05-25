@@ -10,7 +10,7 @@
 #include <map>
 #include "JobShop.hpp"
 
-JobShop::JobShop()
+JobShop::JobShop() : nrOfachines(0), currentTime(1)
 {
 	// TODO Auto-generated constructor stub
 
@@ -94,7 +94,7 @@ bool JobShop::readJobLine(int id, std::string jobLine)
 			r = DURATION;
 		}else{
 			duration = std::stoi(m[1]);
-			tasks.push_back(Task(taskId, machine, duration));
+			tasks.push_back(Task(taskId, id, machine, duration));
 			++taskId;
 			r = MACHINE;
 		}
@@ -112,47 +112,74 @@ void JobShop::schedule()
 {
 	std::cout << __PRETTY_FUNCTION__ << std::endl;
 
-	Job& critPath = calculateCriticalPath();
-	std::cout << "jobs.at(0).getId(): " << jobs.at(0).getId() << std::endl;
-
-	std::map<unsigned int, Job&> jobsWithSlack;
-	for (auto &job : jobs)
+	for(int i = 0; i < 10; ++i)
 	{
-		std::cout << job.getId() << std::endl;
-		jobsWithSlack.insert(std::pair<unsigned int, Job&>(calculateSlack(job, critPath), job));
-	}
+		std::cout << "currentTime: " << currentTime << std::endl;
 
-	for (auto const& jws : jobsWithSlack)
-	{
-		std::cout << "job " << jws.second.getId() << " slack: " << jws.first << std::endl;
-
-
-		const Task& firstTask = jws.second.getFirstTask();
-
-		Machine& m = machines.at(firstTask.getMachine());
-		if (!m.isBusy())
+		for (auto &machine : machines)
 		{
-			m.setTask(firstTask);
-			jws.second.removeFirstTask();
+			std::cout << "nice " << std::endl;
+			if (machine.getEndTime() < currentTime && machine.isBusy())
+			{
+				std::cout << "meme" << std::endl;
+				machine.setBusy(false);
+				jobs.at(machine.getTask().getJobId()).removeFirstTask();
+				std::cout << "!!!!!" << std::endl;
+			}
 		}
 
-		std::cout << "taskId: "  << m.getTask().getId() << std::endl;
 
-		std::cout << "job " << jws.second.getId() << " firstTask: " << firstTask.getId() << std::endl;
+		Job& critPath = calculateCriticalPath();
+//		std::cout << "jobs.at(0).getId(): " << jobs.at(0).getId() << std::endl;
+
+		std::map<unsigned int, Job&> jobsWithSlack;
+		for (auto &job : jobs)
+		{
+			jobsWithSlack.insert(std::pair<unsigned int, Job&>(calculateSlack(job, critPath), job));
+		}
+
+		bool taskGivenToMachine = false;
+		for (auto const& jws : jobsWithSlack)
+		{
+			std::cout << "job " << jws.second.getId() << " slack: " << jws.first << std::endl;
 
 
+			const Task& firstTask = jws.second.getFirstTask();
+
+			Machine& m = machines.at(firstTask.getMachine());
+			if (!m.isBusy())
+			{
+				m.setTask(firstTask, currentTime - 1);
+				taskGivenToMachine = true;
+				std::cout << "machineid "
+						<< m.getMachineNr()
+						<< " is busy with task "
+						<< m.getTask().getId()
+						<< " from job "
+						<< m.getTask().getJobId()
+						<< " which is scheduled to end at "
+						<< m.getEndTime()
+						<< std::endl;
+	//			jws.second.removeFirstTask();
+			}
+
+//			std::cout << "taskId: "  << m.getTask().getId() << std::endl;
+
+			std::cout << "job " << jws.second.getId() << " firstTask: " << firstTask.getId() << std::endl;
+
+		}
+
+		std::cout << "critPathJobId: " << critPath.getId() << std::endl;
+
+		++currentTime;
 	}
 
-	std::cout << "critPathJobId: " << critPath.getId() << std::endl;
 
 
 
-
-
-
-	machines.at(1).addTask(Task(0, 1, 6));
-	machines.at(1).addTask(Task(2, 1, 2));
-	machines.at(1).addTask(Task(3, 1, 9));
+//	machines.at(1).addTask(Task(0, 1, 6));
+//	machines.at(1).addTask(Task(2, 1, 2));
+//	machines.at(1).addTask(Task(3, 1, 9));
 }
 
 Job& JobShop::calculateCriticalPath()

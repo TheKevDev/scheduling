@@ -8,7 +8,7 @@
 #include "Machine.hpp"
 
 Machine::Machine(int nr)
-: machineNr(nr), startTime(0), endTime(0), busy(false), task(1,2,3)
+: machineNr(nr), startTime(0), endTime(0), busy(false), task(1,2,3,4)
 {
 	std::cout << __PRETTY_FUNCTION__ << " " << machineNr << std::endl;
 
@@ -35,7 +35,9 @@ Task Machine::getTask() const
 	return task;
 }
 
-void Machine::setTask(Task task)
+void Machine::setTask(Task task, unsigned int currentTime)
 {
 	this->task = task;
+	busy = true;
+	endTime = task.duration + currentTime;
 }

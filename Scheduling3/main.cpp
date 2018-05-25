@@ -32,10 +32,10 @@ int main(int argc, char* argv[])
 		std::cerr << "geen pad naar bestand meegegeven" << std::endl;
 	}
 
-
-
-	std::string test;
-	std::cin >> test;
+//
+//
+//	std::string test;
+//	std::cin >> test;
 
 	return 0;
 }

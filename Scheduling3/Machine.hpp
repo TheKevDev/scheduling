@@ -24,13 +24,28 @@ public:
 	}
 
 	Task getTask() const;
-	void setTask(Task task1);
+	void setTask(Task task, unsigned int currentTime);
+
+	unsigned int getEndTime() const
+	{
+		return endTime;
+	}
+
+	void setBusy(bool busy)
+	{
+		this->busy = busy;
+	}
+
+	int getMachineNr() const
+	{
+		return machineNr;
+	}
 
 private:
 	int machineNr;
 	std::vector<Task> tasks;
 	int startTime;
-	int endTime;
+	unsigned int endTime;
 	bool busy;
 	Task task;
 

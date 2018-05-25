@@ -7,8 +7,8 @@
 #include <iostream>
 #include "Task.hpp"
 
-Task::Task(long id, long machine, long duration)
-: duration(duration), id(id), machine(machine), startTime(0), endTime(0), planned(false), ES(0), LS(0)
+Task::Task(long id, long jobId, long machine, long duration)
+: duration(duration), id(id), jobId(jobId), machine(machine), startTime(0), endTime(0), planned(false), ES(0), LS(0)
 {
 	std::cout << __PRETTY_FUNCTION__ << " " << id << " " << machine << " " << duration << std::endl;
 }
