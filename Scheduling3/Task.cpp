@@ -13,6 +13,12 @@ Task::Task(long id, long jobId, long machine, long duration)
 {
 }
 
+Task::Task()
+: duration(0), id(0), jobId(0), machine(0), startTime(0), endTime(0), planned(false), ES(0), LS(0)
+{
+
+}
+
 Task::~Task()
 {
 }

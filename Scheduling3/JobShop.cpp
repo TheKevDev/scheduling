@@ -141,7 +141,7 @@ void JobShop::schedule()
 				m.setTask(firstTask, currentTime - 1);
 				if(jws.second.getEndTime() == 0)
 				{
-					jws.second.setStartTime(currentTime -1);
+					jws.second.setStartTime(currentTime - 1);
 				}
 			}
 		}

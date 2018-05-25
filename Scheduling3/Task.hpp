@@ -12,6 +12,7 @@ class Task
 {
 public:
 	Task(long id, long jobId, long machine, long duration);
+	Task();
 	virtual ~Task();
 	void setStartTime(long startTime);
 	void setEndTime(long endTime);

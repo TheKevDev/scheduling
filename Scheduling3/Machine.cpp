@@ -8,7 +8,7 @@
 #include "Machine.hpp"
 
 Machine::Machine(int nr)
-: machineNr(nr), startTime(0), endTime(0), busy(false), task(1,2,3,4) //TODO: Fix this dirty initialization of Task
+: machineNr(nr), startTime(0), endTime(0), busy(false), task()
 {
 }
 
