@@ -104,6 +104,7 @@ void JobShop::schedule()
 {
 	for(;;)
 	{
+		// 1
 		bool tasksLeft = false;
 		for (auto &job : jobs)
 		{
@@ -112,6 +113,7 @@ void JobShop::schedule()
 
 		if (!tasksLeft) break;
 
+		// 2
 		for (auto &machine : machines)
 		{
 			if (machine.getEndTime() < currentTime && machine.isBusy())
@@ -122,7 +124,10 @@ void JobShop::schedule()
 			}
 		}
 
+		// 3
 		Job& critPath = calculateCriticalPath();
+
+		// 4
 		std::multimap<unsigned int, Job&> jobsWithSlack;
 		for (auto &job : jobs)
 		{
@@ -132,6 +137,7 @@ void JobShop::schedule()
 			}
 		}
 
+		// 5
 		for (auto const& jws : jobsWithSlack)
 		{
 			const Task& firstTask = jws.second.getFirstTask();
@@ -145,9 +151,12 @@ void JobShop::schedule()
 				}
 			}
 		}
+
+		// 6
 		++currentTime;
 	}
 
+	// 7
 	for (auto &job : jobs)
 	{
 		// Print result

@@ -23,8 +23,16 @@ public:
 
 	const Task& getFirstTask() const;
 
+	/**
+	 * @brief Removes the first waiting task from the job
+	 */
 	void removeFirstTask();
 
+	/**
+	 * @brief checks if a job has tasks left
+	 * @return false when there are no tasks left
+	 * @return true when there are tasks left
+	 */
 	bool hasTasks();
 
 	int getId() const
