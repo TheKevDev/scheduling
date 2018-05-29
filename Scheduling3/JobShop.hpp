@@ -28,6 +28,26 @@ public:
 	bool readFile(std::string filePath);
 
 	/**
+	 * @brief the part where the actual magic happens. In all seriousness, in this part the LST scheduling algorithm gets put to use.
+	 * Steps that happen here:
+	 * 1. Check if the jobs have tasks left. If not, break
+	 * 2. Remove tasks from machines if they're done
+	 * 3. Calculate the critical path using calculateCriticalPath()
+	 * 4. Calculate slack time per job using calculateSlack()
+	 * 5. Loop through all jobs, least slack first. If the first waiting task in a job can be assigned to a machine, assign it to a machine.
+	 * 6. Add one to the time
+	 * 7. When done, print the results
+	 */
+	void schedule();
+
+private:
+	std::string filePath;
+	unsigned int nrOfachines;
+	std::vector<Job> jobs;
+	std::vector<Machine> machines;
+	unsigned int currentTime;
+
+	/**
 	 * @brief tries to read the contents of the first line in the file opened with readFile().
 	 * 		With those values it sets the nrOfMachines variable
 	 * @return true if succeeded
@@ -42,19 +62,6 @@ public:
 	 * @return false if failed
 	 */
 	bool readJobLine(int id, std::string jobLine);
-
-	/**
-	 * @brief the part where the actual magic happens. In all seriousness, in this part the LST scheduling algorithm gets put to use.
-	 * Steps that happen here:
-	 * 1. Check if the jobs have tasks left. If not, break
-	 * 2. Remove tasks from machines if they're done
-	 * 3. Calculate the critical path using calculateCriticalPath()
-	 * 4. Calculate slack time per job using calculateSlack()
-	 * 5. Loop through all jobs, least slack first. If the first waiting task in a job can be assigned to a machine, assign it to a machine.
-	 * 6. Add one to the time
-	 * 7. When done, print the results
-	 */
-	void schedule();
 
 	/**
 	 * @brief As the name suggests, this function calculates the amount of slack time, according to the formula s = (d - t) - c
@@ -74,13 +81,6 @@ public:
 	 * @return the job which is the critical path
 	 */
 	Job& calculateCriticalPath();
-
-private:
-	std::string filePath;
-	unsigned int nrOfachines;
-	std::vector<Job> jobs;
-	std::vector<Machine> machines;
-	unsigned int currentTime;
 };
 
 #endif /* JOBSHOP_HPP_ */

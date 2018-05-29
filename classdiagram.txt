@@ -3,14 +3,26 @@
 title scheduling - Class Diagram
 
 class JobShop {
-    -int machines
-	+bool readFile(String path)
-    +Result ScheduleJobs()
-	+void printResult(Result)
+    +JobShop();
+	+bool readFile(std::string filePath);
+	+void schedule();
+	-bool readFirstLine(std::string firstLine);
+	-bool readJobLine(int id, std::string jobLine);
+	-unsigned int calculateSlack(const Job& job, const Job& critPath) const;
+	-Job& calculateCriticalPath();
+	-std::string filePath;
+	-unsigned int nrOfachines;
+	-unsigned int currentTime;
 }
 
 class Job {
-    +int id
+    +Job(int id, const std::vector<Task>& aTasks);
+	+const Task& getFirstTask() const;
+	+void removeFirstTask();
+	+bool hasTasks();
+	-int id;
+	-unsigned int endTime;
+	-unsigned int startTime;
 }
 
 class Task {
@@ -18,27 +30,23 @@ class Task {
     +int machine
     +int duration
 	+int startTime
+	+Task(long id, long jobId, long machine, long duration);
 }
 
 class Machine {
-	
-}
-
-class Results <<(S,#FF7700)>>{
-    
-}
-
-class Result <<(S,#FF7700)>>{
-    +int id
-    +int startTime
-    +int endTime
+	+Machine(int nr);
+	+Task getTask() const;
+	+void setTask(Task task, unsigned int currentTime);
+	-int machineNr;
+	-int startTime;
+	-unsigned int endTime;
+	-bool busy;
+	-Task task;
 }
 
 JobShop -> "0..*" Job
 Job -> "1..*" Task
 JobShop -> "0..*" Machine
 Machine -> "0..*" Task
-Results -> Result
-
 
 @enduml

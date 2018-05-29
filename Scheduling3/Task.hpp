@@ -14,29 +14,6 @@ public:
 	Task(long id, long jobId, long machine, long duration);
 	Task();
 	virtual ~Task();
-	void setStartTime(long startTime);
-	void setEndTime(long endTime);
-	void setPlanned(bool planned);
-
-	long getEs() const
-	{
-		return ES;
-	}
-
-	void setEs(long es)
-	{
-		ES = es;
-	}
-
-	long getLs() const
-	{
-		return LS;
-	}
-
-	void setLs(long ls)
-	{
-		LS = ls;
-	}
 
 	long getDuration() const
 	{
@@ -63,22 +40,12 @@ public:
 		return jobId;
 	}
 
-	long getEndTime() const
-	{
-		return endTime;
-	}
-
-	long duration;
 
 private:
 	long id;
 	long jobId;
 	long machine;
-	long startTime;
-	long endTime;
-	bool planned;
-	long ES;
-	long LS;
+	long duration;
 };
 
 #endif /* TASK_HPP_ */

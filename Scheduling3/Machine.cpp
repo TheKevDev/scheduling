@@ -16,13 +16,6 @@ Machine::~Machine()
 {
 }
 
-void Machine::addTask(Task aTask)
-{
-	tasks.push_back(aTask);
-	aTask.setStartTime(endTime);
-	endTime += aTask.duration;
-}
-
 Task Machine::getTask() const
 {
 	return task;
@@ -32,5 +25,5 @@ void Machine::setTask(Task task, unsigned int currentTime)
 {
 	this->task = task;
 	busy = true;
-	endTime = task.duration + currentTime;
+	endTime = task.getDuration() + currentTime;
 }

@@ -17,11 +17,14 @@ class Machine
 public:
 	Machine(int nr);
 	virtual ~Machine();
-	void addTask(Task aTask);
 
 	bool isBusy() const
 	{
 		return busy;
+	}
+	void setBusy(bool busy)
+	{
+		this->busy = busy;
 	}
 
 	Task getTask() const;
@@ -31,12 +34,6 @@ public:
 	{
 		return endTime;
 	}
-
-	void setBusy(bool busy)
-	{
-		this->busy = busy;
-	}
-
 	int getMachineNr() const
 	{
 		return machineNr;
@@ -44,7 +41,6 @@ public:
 
 private:
 	int machineNr;
-	std::vector<Task> tasks;
 	int startTime;
 	unsigned int endTime;
 	bool busy;
