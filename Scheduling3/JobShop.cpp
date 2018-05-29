@@ -34,6 +34,11 @@ bool JobShop::readFile(std::string filePath)
 			{
 				if (!readFirstLine(line))
 					throw std::runtime_error("Error: inlezen eerste regel faalt.");
+
+				for (unsigned int i = 0; i < nrOfachines; ++i)
+				{
+					machines.push_back(Machine(i));
+				}
 			}
 			else
 			{
@@ -94,7 +99,6 @@ bool JobShop::readJobLine(int id, std::string jobLine)
 		jobLine = m.suffix().str(); // Proceed to the next match
 	}
 	jobs.push_back(Job(id, tasks));
-	machines.push_back(Machine(id));
 	if (r == DURATION)
 		return false;
 	return true;
