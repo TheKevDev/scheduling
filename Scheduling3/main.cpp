@@ -12,6 +12,7 @@
 
 int main(int argc, char* argv[])
 {
+	argc = argc; // Prevent unused parameter 'argc' warning
 	if (argv[1])
 	{
 		JobShop JS;
